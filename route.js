@@ -133,7 +133,7 @@ function initMap() {
   // var ui = H.ui.UI.createDefault(map, defaultLayers);
 
   // Now use the map as required...
-  window.onload = function() {};
+  window.onload = function () { };
 
   var myLatLng = new google.maps.LatLng({ lat: 39.953885, lng: -75.193048 });
   var sourceMarker = new google.maps.Marker({
@@ -204,7 +204,7 @@ function initMap() {
     var infowindowContent = document.getElementById("infowindow-content");
     infowindow.setContent(infowindowContent);
 
-    autocomplete.addListener("place_changed", function() {
+    autocomplete.addListener("place_changed", function () {
       console.log(input.id);
       infowindow.close();
       if (input.id == "source") {
@@ -213,7 +213,7 @@ function initMap() {
         destMarker.setVisible(false);
       }
       var place = autocomplete.getPlace();
-      console.log(place);
+      // console.log(place);
       if (!place.geometry) {
         // User entered the name of a Place that was not suggested and
         // pressed the Enter key, or the Place Details request failed.
@@ -244,13 +244,13 @@ function initMap() {
         address = [
           (place.address_components[0] &&
             place.address_components[0].short_name) ||
-            "",
+          "",
           (place.address_components[1] &&
             place.address_components[1].short_name) ||
-            "",
+          "",
           (place.address_components[2] &&
             place.address_components[2].short_name) ||
-            ""
+          ""
         ].join(" ");
       }
 
@@ -284,7 +284,7 @@ var defaultLayers = platform.createDefaultLayers();
 
 var router = platform.getRoutingService();
 
-var onResult = function(result) {
+var onResult = function (result) {
   console.log(result);
   // console.log(result);
   var route, routeShape, startPoint, endPoint, linestring;
@@ -299,7 +299,7 @@ var onResult = function(result) {
 
     // Push all the points in the shape into the linestring:
     let pathCoordinates = [];
-    routeShape.forEach(function(point) {
+    routeShape.forEach(function (point) {
       var parts = point.split(",");
       pathCoordinates.push({
         lat: parseFloat(parts[0]),
@@ -326,7 +326,17 @@ var onResult = function(result) {
     paths.setMap(map);
   }
 };
+var btn = document.getElementById('Button');
+var loader = document.getElementById('loader');
+
+function calculateRoutes() {
+  window.setTimeout(()=>calculateSafeRoute(), 2000);
+  btn.classList.add('hide');
+  loader.classList.remove('hide');
+}
 function calculateSafeRoute() {
+  loader.classList.add('hide');
+  btn.classList.remove('hide');
   generateAvoidAreas();
   console.log(sourceLocation);
   console.log(sourceLocation.lat());
@@ -349,7 +359,7 @@ function calculateSafeRoute() {
     representation: "display"
   };
 
-  router.calculateRoute(routingParameters, onResult, function(error) {
+  router.calculateRoute(routingParameters, onResult, function (error) {
     console.log(error.message);
     alert(error.message);
   });

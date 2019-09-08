@@ -33,10 +33,11 @@
   <body>
     <section class="main">
       <div class="left">
-        <h2>Enter Source</h2>
+        <h2>Choose Source and Destination</h2>
         <input type="text" name="source" id="source" placeholder="Source" />
         <input type="text" name="dest" id="dest" placeholder="Destination" />
-        <input id="Button" type="button" value="Find Safe Route" onclick="calculateSafeRoute();"  disabled="true"/>
+        <input id="Button" type="button" value="Find Safe Route" onclick="calculateRoutes();"  disabled="true"/>
+        <div class="loader hide" id="loader"></div>
       </div>
       <div class="right">
         <div id="map"></div>
