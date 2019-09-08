@@ -200,16 +200,28 @@ function initMap() {
     // Set the data fields to return when the user selects a place.
     autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
 
-    var infowindow = new google.maps.InfoWindow();
-    var infowindowContent = document.getElementById("infowindow-content");
-    infowindow.setContent(infowindowContent);
+    var sourceInfowindow = new google.maps.InfoWindow();
+    var destInfowindow = new google.maps.InfoWindow();
+
+    var sourceInfowindowContent = document.getElementById(
+      "sourceInfowindow-content"
+    );
+    var destInfowindowContent = document.getElementById(
+      "destInfowindow-content"
+    );
+
+    sourceInfowindow.setContent(sourceInfowindowContent);
+
+    destInfowindow.setContent(destInfowindowContent);
 
     autocomplete.addListener("place_changed", function() {
       console.log(input.id);
-      infowindow.close();
+
       if (input.id == "source") {
+        sourceInfowindow.close();
         sourceMarker.setVisible(false);
       } else {
+        destInfowindow.close();
         destMarker.setVisible(false);
       }
       var place = autocomplete.getPlace();
@@ -254,14 +266,17 @@ function initMap() {
         ].join(" ");
       }
 
-      infowindowContent.children["place-icon"].src = place.icon;
-      infowindowContent.children["place-name"].textContent = place.name;
-      infowindowContent.children["place-address"].textContent = address;
       if ("source" == input.id) {
-        infowindow.open(map, sourceMarker);
+        sourceInfowindowContent.children["place-icon"].src = place.icon;
+        sourceInfowindowContent.children["place-name"].textContent = place.name;
+        sourceInfowindowContent.children["place-address"].textContent = address;
+        sourceInfowindow.open(map, sourceMarker);
         sourceLocation = sourceMarker.position;
       } else {
-        infowindow.open(map, destMarker);
+        destInfowindowContent.children["place-icon"].src = place.icon;
+        destInfowindowContent.children["place-name"].textContent = place.name;
+        destInfowindowContent.children["place-address"].textContent = address;
+        destInfowindow.open(map, destMarker);
         destLocation = destMarker.position;
       }
 
