@@ -1,44 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Disaster Navigator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://js.api.here.com/v3/3.1/mapsjs-ui.css"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="demo.css" /> -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+    ></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Disaster Navigator</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="demo.css" /> -->
-  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
-  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
-  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
-  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
-</head>
-
-<body>
-  <section class="main">
-    <div class="left">
-      <h2>Enter Source</h2>
-      <input type="text" name="source" id="source" placeholder="Source">
-      <input type="text" name="dest" id="dest" placeholder="Destination">
+  <body>
+    <section class="main">
+      <div class="left">
+        <h2>Enter Source</h2>
+        <input type="text" name="source" id="source" placeholder="Source" />
+        <input type="text" name="dest" id="dest" placeholder="Destination" />
+        <input id="Button" type="button" value="Find Safe Route" onclick="calculateSafeRoute();"  disabled="true"/>
+      </div>
+      <div class="right">
+        <div id="map"></div>
+      </div>
       <div id="infowindow-content">
-          <img src="" width="16" height="16" id="place-icon">
-          <span id="place-name"  class="title"></span><br>
-          <span id="place-address"></span>
-        </div>
-    </div>
-    <div class="right">
-      <div id="map"></div>
-    </div>
-  </section>
-  <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places‌​&sensor=false"
+        <img src="" width="16" height="16" id="place-icon" />
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+      </div>
+    </section>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places‌​&sensor=false"
   async defer></script> -->
 
-  <script src="route.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&callback=initMap"
-    async defer></script>
-
-</body>
-
+    <script src="route.js"></script>
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places&callback=initMap""
+    ></script>
+  </body>
 </html>
