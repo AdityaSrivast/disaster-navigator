@@ -101,6 +101,25 @@ var fires = [
   }
 ];
 
+var laFires = [
+  {
+    center: [34.22957, -118.2674],
+    area: 2911
+  },
+  {
+    center: [39.45352, -121.41222],
+    area: 2441
+  },
+  {
+    center: [34.567, -119.953],
+    area: 7500
+  },
+  {
+    center: [37.61757, -120.21321],
+    area: 28000
+  }
+];
+
 //Step 1: initialize communication with the platform
 // In your own code, replace variable window.apikey with your own apikey
 
@@ -164,6 +183,19 @@ function initMap() {
       map: map,
       center: { lat: fires[i].center[0], lng: fires[i].center[1] },
       radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 1000
+    });
+  }
+  let laFiresNum = laFires.length;
+  for (var i = 0; i < laFiresNum; ++i) {
+    var laFireCircle = new google.maps.Circle({
+      strokeColor: "#0000FF",
+      strokeOpacity: 1,
+      strokeWeight: 4,
+      fillColor: "#0000FF",
+      fillOpacity: 0.35,
+      map: map,
+      center: { lat: laFires[i].center[0], lng: laFires[i].center[1] },
+      radius: Math.sqrt(laFires[i].area / (100 * Math.PI)) * 1000
     });
   }
   // console.log(source);
@@ -301,8 +333,6 @@ var router = platform.getRoutingService();
 let oldPaths;
 
 var onResult = function(result) {
-  console.log(result);
-  console.log(result.response.route[0].leg[0].maneuver);
   var ds = result.response.route[0].leg[0].maneuver;
   var dsHTML = "";
   for (var i = 0; i < ds.length; ++i) {
@@ -333,11 +363,11 @@ var onResult = function(result) {
         lng: parseFloat(parts[1])
       });
       /*if (Math.random() < 0.1) {
-        pathCoordinates.push({
-          lat: parseFloat(parts[0]),
-          lng: parseFloat(parts[1])
-        });
-    }*/
+          pathCoordinates.push({
+            lat: parseFloat(parts[0]),
+            lng: parseFloat(parts[1])
+          });
+      }*/
     });
 
     // map.panTo(parseFloat(parts[0]))
@@ -428,6 +458,37 @@ function generateAvoidAreas(x1, y1, x2, y2) {
       toReturn += "!";
     }
   }
+
+  var laFiresNum = laFires.length;
+  for (var i = 0; i < laFiresNum; ++i) {
+    var data = {
+      center: { lat: laFires[i].center[0], lng: laFires[i].center[1] },
+      radius: Math.sqrt(laFires[i].area / (100 * Math.PI))
+    };
+    var dLat = data.radius / 111.32;
+    var dLng = (data.radius * 360) / (40075.0 * Math.cos(data.center.lat));
+
+    var topLeftLat = data.center.lat + dLat;
+    var topLeftLng = data.center.lng - dLng;
+    var bottomRightLat = data.center.lat - dLat;
+    var bottomRightLng = data.center.lng + dLng;
+
+    if (
+      within(x1, y1, x2, y2, topLeftLat, topLeftLng) ||
+      within(x1, y1, x2, y2, bottomRightLat, bottomRightLng)
+    ) {
+      toReturn += topLeftLat;
+      toReturn += ",";
+      toReturn += topLeftLng;
+      toReturn += ";";
+      toReturn += bottomRightLat;
+      toReturn += ",";
+      toReturn += bottomRightLng;
+
+      toReturn += "!";
+    }
+  }
+
   if (toReturn.length > 0) {
     toReturn = toReturn.substr(0, toReturn.length - 1);
   }

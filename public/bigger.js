@@ -163,7 +163,7 @@ function initMap() {
       fillOpacity: 0.35,
       map: map,
       center: { lat: fires[i].center[0], lng: fires[i].center[1] },
-      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 1000
+      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 100000
     });
   }
   // console.log(source);
@@ -333,11 +333,11 @@ var onResult = function(result) {
         lng: parseFloat(parts[1])
       });
       /*if (Math.random() < 0.1) {
-        pathCoordinates.push({
-          lat: parseFloat(parts[0]),
-          lng: parseFloat(parts[1])
-        });
-    }*/
+          pathCoordinates.push({
+            lat: parseFloat(parts[0]),
+            lng: parseFloat(parts[1])
+          });
+      }*/
     });
 
     // map.panTo(parseFloat(parts[0]))
@@ -403,7 +403,7 @@ function generateAvoidAreas(x1, y1, x2, y2) {
   for (var i = 0; i < firesNum; ++i) {
     var data = {
       center: { lat: fires[i].center[0], lng: fires[i].center[1] },
-      radius: Math.sqrt(fires[i].area / (100 * Math.PI))
+      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 100
     };
     var dLat = data.radius / 111.32;
     var dLng = (data.radius * 360) / (40075.0 * Math.cos(data.center.lat));
