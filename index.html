@@ -28,16 +28,21 @@
       type="text/javascript"
       src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
     ></script>
+    <link rel="shortcut icon" href="images/navigator.png" type="image/x-icon">
   </head>
 
   <body>
+    <header></header>
     <section class="main">
       <div class="left">
-        <h2>Choose Source and Destination</h2>
-        <input type="text" name="source" id="source" placeholder="Source" />
-        <input type="text" name="dest" id="dest" placeholder="Destination" />
+        <h2>Disaster Navigator</h2>
+        <input type="text" name="source" id="source" placeholder="Enter a Source" />
+        <input type="text" name="dest" id="dest" placeholder="Enter a Destination" />
         <input id="Button" type="button" value="Find Safe Route" onclick="calculateRoutes();"  disabled="true"/>
         <div class="loader hide" id="loader"></div>
+        <div class="image-div">
+          <!-- <img src="images/rescue1.jpg" alt="" class="image-us"> -->
+        </div>
       </div>
       <div class="right">
         <div id="map"></div>

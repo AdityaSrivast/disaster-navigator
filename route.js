@@ -285,8 +285,7 @@ var defaultLayers = platform.createDefaultLayers();
 var router = platform.getRoutingService();
 
 var onResult = function (result) {
-  console.log(result);
-  // console.log(result);
+
   var route, routeShape, startPoint, endPoint, linestring;
   if (result.response.route) {
     // Pick the first route from the response:
@@ -399,7 +398,7 @@ function generateAvoidAreas(x1, y1, x2, y2) {
   if (toReturn.length > 0) {
     toReturn = toReturn.substr(0, toReturn.length - 1);
   }
-  console.log(toReturn);
+  // console.log(toReturn);
   return toReturn;
 }
 
