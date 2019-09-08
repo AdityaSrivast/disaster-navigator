@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Disaster Navigator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://js.api.here.com/v3/3.1/mapsjs-ui.css"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="demo.css" /> -->
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+    ></script>
+    <link rel="shortcut icon" href="images/navigator.png" type="image/x-icon">
+  </head>
+
+  <body>
+    <header></header>
+    <section class="main">
+      <div class="left">
+        <h2>Disaster Navigator</h2>
+        <input type="text" name="source" id="source" placeholder="Enter a Source" />
+        <input type="text" name="dest" id="dest" placeholder="Enter a Destination" />
+        <input id="Button" type="button" value="Find Safe Route" onclick="calculateRoutes();"  disabled="true"/>
+        <div class="loader hide" id="loader"></div>
+        <div class="image-div">
+          <!-- <img src="images/rescue1.jpg" alt="" class="image-us"> -->
+        </div>
+      </div>
+      <div class="right">
+        <div id="map"></div>
+      </div>
+      <div id="infowindow-content">
+        <img src="" width="16" height="16" id="place-icon" />
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+      </div>
+    </section>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places‌​&sensor=false"
+  async defer></script> -->
+
+    <script src="route.js"></script>
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places&callback=initMap""
+    ></script>
+  </body>
+</html>
