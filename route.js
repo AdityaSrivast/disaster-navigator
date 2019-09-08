@@ -90,15 +90,23 @@ function initMap() {
     // console.log(source);
 
     // window.onload = function() {
-    ev = document.createEvent('Event');
-    ev.initEvent('change', true, false);
-    source.dispatchEvent(ev);
+    // ev = document.createEvent('Event');
+    // ev.initEvent('change', true, false);
+    // source.dispatchEvent(ev);
+    source.onkeypress=()=> {
+        autofill(source);
+    }
+    dest.onkeypress=()=> {
+        autofill(dest);
+    }
     // }
 
     function autofill(input) {
-        console.log('inside');
+        // console.log('inside');
         console.log(input);
+        // new google
         var autocomplete = new google.maps.places.Autocomplete(input);
+        console.log(autocomplete);
 
         // Bind the map's bounds (viewport) property to the autocomplete object,
         // so that the autocomplete requests use the current map bounds for the
@@ -121,6 +129,7 @@ function initMap() {
             infowindow.close();
             marker.setVisible(false);
             var place = autocomplete.getPlace();
+            // console.log(place);
             if (!place.geometry) {
                 // User entered the name of a Place that was not suggested and
                 // pressed the Enter key, or the Place Details request failed.

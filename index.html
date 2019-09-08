@@ -21,6 +21,11 @@
       <h2>Enter Source</h2>
       <input type="text" name="source" id="source" placeholder="Source">
       <input type="text" name="dest" id="dest" placeholder="Destination">
+      <div id="infowindow-content">
+          <img src="" width="16" height="16" id="place-icon">
+          <span id="place-name"  class="title"></span><br>
+          <span id="place-address"></span>
+        </div>
     </div>
     <div class="right">
       <div id="map"></div>
@@ -30,6 +35,7 @@
   async defer></script> -->
 
   <script src="route.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&libraries=places"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqFi5mokWF3eEYU-t0SFm5SynW--ahHM&callback=initMap"
     async defer></script>
 
