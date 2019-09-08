@@ -133,7 +133,7 @@ function initMap() {
   // var ui = H.ui.UI.createDefault(map, defaultLayers);
 
   // Now use the map as required...
-  window.onload = function () { };
+  window.onload = function() {};
 
   var myLatLng = new google.maps.LatLng({ lat: 39.953885, lng: -75.193048 });
   var sourceMarker = new google.maps.Marker({
@@ -163,7 +163,7 @@ function initMap() {
       fillOpacity: 0.35,
       map: map,
       center: { lat: fires[i].center[0], lng: fires[i].center[1] },
-      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 100000
+      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 1000
     });
   }
   // console.log(source);
@@ -204,7 +204,7 @@ function initMap() {
     var infowindowContent = document.getElementById("infowindow-content");
     infowindow.setContent(infowindowContent);
 
-    autocomplete.addListener("place_changed", function () {
+    autocomplete.addListener("place_changed", function() {
       console.log(input.id);
       infowindow.close();
       if (input.id == "source") {
@@ -244,13 +244,13 @@ function initMap() {
         address = [
           (place.address_components[0] &&
             place.address_components[0].short_name) ||
-          "",
+            "",
           (place.address_components[1] &&
             place.address_components[1].short_name) ||
-          "",
+            "",
           (place.address_components[2] &&
             place.address_components[2].short_name) ||
-          ""
+            ""
         ].join(" ");
       }
 
@@ -283,9 +283,9 @@ var platform = new H.service.Platform({
 var defaultLayers = platform.createDefaultLayers();
 
 var router = platform.getRoutingService();
+let oldPaths;
 
-var onResult = function (result) {
-
+var onResult = function(result) {
   var route, routeShape, startPoint, endPoint, linestring;
   if (result.response.route) {
     // Pick the first route from the response:
@@ -298,7 +298,7 @@ var onResult = function (result) {
 
     // Push all the points in the shape into the linestring:
     let pathCoordinates = [];
-    routeShape.forEach(function (point) {
+    routeShape.forEach(function(point) {
       var parts = point.split(",");
       pathCoordinates.push({
         lat: parseFloat(parts[0]),
@@ -322,20 +322,25 @@ var onResult = function (result) {
       strokeWeight: 2
     });
 
+    if (oldPaths != undefined) {
+      oldPaths.setVisible(false);
+    }
+
     paths.setMap(map);
+    oldPaths = paths;
   }
 };
-var btn = document.getElementById('Button');
-var loader = document.getElementById('loader');
+var btn = document.getElementById("Button");
+var loader = document.getElementById("loader");
 
 function calculateRoutes() {
-  window.setTimeout(()=>calculateSafeRoute(), 2000);
-  btn.classList.add('hide');
-  loader.classList.remove('hide');
+  window.setTimeout(() => calculateSafeRoute(), 2000);
+  btn.classList.add("hide");
+  loader.classList.remove("hide");
 }
 function calculateSafeRoute() {
-  loader.classList.add('hide');
-  btn.classList.remove('hide');
+  loader.classList.add("hide");
+  btn.classList.remove("hide");
   generateAvoidAreas();
   console.log(sourceLocation);
   console.log(sourceLocation.lat());
@@ -358,7 +363,7 @@ function calculateSafeRoute() {
     representation: "display"
   };
 
-  router.calculateRoute(routingParameters, onResult, function (error) {
+  router.calculateRoute(routingParameters, onResult, function(error) {
     console.log(error.message);
     alert(error.message);
   });
@@ -370,7 +375,7 @@ function generateAvoidAreas(x1, y1, x2, y2) {
   for (var i = 0; i < firesNum; ++i) {
     var data = {
       center: { lat: fires[i].center[0], lng: fires[i].center[1] },
-      radius: Math.sqrt(fires[i].area / (100 * Math.PI)) * 100
+      radius: Math.sqrt(fires[i].area / (100 * Math.PI))
     };
     var dLat = data.radius / 111.32;
     var dLng = (data.radius * 360) / (40075.0 * Math.cos(data.center.lat));
